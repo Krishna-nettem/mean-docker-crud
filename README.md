@@ -149,34 +149,32 @@ All operations work through the Express API with MongoDB storage.
 
 ---
 
-## 📸 Screenshots ( SOON)
+## 📸 Screenshots
+
+<img width="1918" height="692" alt="Screenshot 2025-12-02 120453" src="https://github.com/user-attachments/assets/25441f55-3522-4257-bfde-21dd59661b31" />
 
 
-1. **Docker Desktop dashboard**
+<img width="1919" height="875" alt="Screenshot 2025-12-02 120618" src="https://github.com/user-attachments/assets/28508152-e1bc-401e-9ce5-3955c9e2a8f7" />
 
-   * mongo
-   * backend
-   * frontend
-   * nginx
 
-2. **Web UI working** (`http://localhost`)
 
-3. **GitHub Actions pipeline (green successful run)**
 
-4. **Docker Hub repository pages**
+<img width="1919" height="978" alt="Screenshot 2025-12-02 120320" src="https://github.com/user-attachments/assets/0b3b4532-e4a4-435c-9e26-7fa721ab58da" />
 
-   * mean-frontend
-   * mean-backend
 
-5. **Terminal screenshot of:**
 
-```
-docker compose up
-```
+<img width="1919" height="1019" alt="Screenshot 2025-12-02 120156" src="https://github.com/user-attachments/assets/1837c421-813f-41af-b91d-572ba7d5096f" />
 
-6. **Project structure screenshot in VS Code**
 
-7. **nginx.conf screenshot**
+
+<img width="1919" height="1020" alt="Screenshot 2025-12-02 120147" src="https://github.com/user-attachments/assets/2bd4a247-30dd-4c2c-8688-d344c5a3aef8" />
+
+
+
+
+
+
+
 
 
 ---
