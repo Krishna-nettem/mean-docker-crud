@@ -149,9 +149,8 @@ All operations work through the Express API with MongoDB storage.
 
 ---
 
-## 📸 Screenshots Required (for Submission)
+## 📸 Screenshots ( SOON)
 
-Your professor will expect these:
 
 1. **Docker Desktop dashboard**
 
@@ -179,7 +178,6 @@ docker compose up
 
 7. **nginx.conf screenshot**
 
-This completes documentation proof.
 
 ---
 
