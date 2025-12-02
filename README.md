@@ -1,27 +1,221 @@
-In this DevOps task, you need to build and deploy a full-stack CRUD application using the MEAN stack (MongoDB, Express, Angular 15, and Node.js). The backend will be developed with Node.js and Express to provide REST APIs, connecting to a MongoDB database. The frontend will be an Angular application utilizing HTTPClient for communication.  
+# MEAN Stack CRUD Application – Dockerized + CI/CD (GitHub Actions)
 
-The application will manage a collection of tutorials, where each tutorial includes an ID, title, description, and published status. Users will be able to create, retrieve, update, and delete tutorials. Additionally, a search box will allow users to find tutorials by title.
+This project is a fully containerized **MEAN Stack CRUD application** that uses:
 
-## Project setup
+* **MongoDB** — Database
+* **Express + Node.js** — Backend API
+* **Angular** — Frontend UI
+* **Nginx** — Reverse Proxy
+* **Docker & Docker Compose** — Deployment
+* **GitHub Actions** — CI/CD pipeline
+* **Docker Hub** — Container registry
 
-### Node.js Server
+Everything runs locally using **Docker Desktop as the VM**.
 
-cd backend
+---
 
-npm install
+## 🗂️ Project Structure
 
-You can update the MongoDB credentials by modifying the `db.config.js` file located in `app/config/`.
+```
+.
+├── docker-compose.yml
+├── nginx.conf
+├── my_readme.md
+│
+├── backend/
+│   ├── Dockerfile
+│   ├── package.json
+│   └── app/
+│       ├── config/db.config.js
+│       ├── controllers/
+│       ├── models/
+│       └── routes/
+│
+└── frontend/
+    ├── Dockerfile
+    ├── angular.json
+    └── src/
+```
 
-Run `node server.js`
+---
 
-### Angular Client
+## 🚀 How to Run the Project (Deployment on Docker Desktop)
 
-cd frontend
+Make sure Docker Desktop is running.
 
-npm install
+### **Start all services**
 
-Run `ng serve --port 8081`
+```
+docker compose up --build
+```
 
-You can modify the `src/app/services/tutorial.service.ts` file to adjust how the frontend interacts with the backend.
+### **Stop everything**
 
-Navigate to `http://localhost:8081/`
+```
+docker compose down
+```
+
+### **After CI/CD pushes new images → pull & redeploy**
+
+```
+docker compose pull
+docker compose up -d
+```
+
+Then open the app:
+
+👉 [http://localhost](http://localhost)
+
+---
+
+## 🧱 Service Breakdown
+
+### **1. Frontend (Angular + Nginx)**
+
+* Angular is built using Node
+* Served through Nginx
+* Calls backend using `/api/...`
+* Runs on **port 80**
+
+### **2. Backend (Node + Express)**
+
+* Exposes REST API for CRUD operations
+* Connects to MongoDB inside Docker network
+* Connection string:
+
+```
+mongodb://root:example@mongo:27017/mean-db?authSource=admin
+```
+
+### **3. MongoDB**
+
+* Official Mongo image
+* Persistent storage via Docker volume
+* Credentials:
+
+  * Username: root
+  * Password: example
+
+### **4. Nginx Reverse Proxy**
+
+Routes:
+
+* `/` → Angular frontend
+* `/api/*` → Backend container
+
+Makes entire app accessible on a single port.
+
+---
+
+## 🐳 CI/CD Pipeline (GitHub Actions)
+
+Pipeline file is located at:
+
+```
+.github/workflows/docker-build.yml
+```
+
+### **What the pipeline does**
+
+* Runs automatically on each push to `main`
+* Builds backend Docker image
+* Builds frontend Docker image
+* Logs into Docker Hub
+* Pushes both images to your Docker Hub account
+
+### **Images pushed**
+
+* `your-dockerhub-username/mean-backend:latest`
+* `your-dockerhub-username/mean-frontend:latest`
+
+This completes the CI/CD requirement.
+
+---
+
+## 🧪 Testing the Application
+
+Open:
+
+👉 [http://localhost](http://localhost)
+
+From the UI you can:
+
+* Add a tutorial
+* Edit a tutorial
+* Delete a tutorial
+* View tutorial details
+
+All operations work through the Express API with MongoDB storage.
+
+---
+
+## 📸 Screenshots ( SOON)
+
+
+1. **Docker Desktop dashboard**
+
+   * mongo
+   * backend
+   * frontend
+   * nginx
+
+2. **Web UI working** (`http://localhost`)
+
+3. **GitHub Actions pipeline (green successful run)**
+
+4. **Docker Hub repository pages**
+
+   * mean-frontend
+   * mean-backend
+
+5. **Terminal screenshot of:**
+
+```
+docker compose up
+```
+
+6. **Project structure screenshot in VS Code**
+
+7. **nginx.conf screenshot**
+
+
+---
+
+## 🧩 Architecture Diagram (Simple)
+
+```
+         ┌────────────┐
+         │  Angular    │
+         │  Frontend   │
+         └──────┬──────┘
+                │  (localhost:80)
+        ┌───────▼────────┐
+        │     Nginx       │
+        └───────┬────────┘
+                │ /api/*
+        ┌───────▼─────────┐
+        │   Backend API    │
+        │  (Express/Node)  │
+        └───────┬─────────┘
+                │
+        ┌───────▼─────────┐
+        │    MongoDB       │
+        └──────────────────┘
+```
+
+---
+
+## 🏁 Conclusion
+
+This project demonstrates complete understanding of:
+
+* MEAN Stack architecture
+* Docker containerization
+* Multi-service orchestration using Docker Compose
+* MongoDB integration
+* Nginx reverse proxy setup
+* Automated CI/CD using GitHub Actions
+* Deployment using Docker Desktop as a Linux VM substitute
+
+
+# END OF README
